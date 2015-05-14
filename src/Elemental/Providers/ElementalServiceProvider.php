@@ -35,7 +35,7 @@ class ElementalServiceProvider extends ServiceProvider {
 
 
 		$this->publishes([
-		    __DIR__.'/../database/migrations/' => database_path('/migrations')
+		    __DIR__.'/../../database/migrations/' => database_path('/migrations')
 		], 'migrations');
 
 		$this->loadViewsFrom(__DIR__.'/../../views', 'elemental');
@@ -45,8 +45,8 @@ class ElementalServiceProvider extends ServiceProvider {
         ], 'views');
 		
 		$this->publishes([
-		    __DIR__.'/../../assets/bower.json' => public_path('js'),
-		], 'bower');
+            __DIR__.'/../../assets/bower.json' => public_path('js/bower.json'),
+        ], 'bower');
 
 		$this->publishes([
 		    __DIR__.'/../../assets/elemental' => public_path('js/elemental'),
