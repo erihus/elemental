@@ -186,5 +186,3 @@ class CreateElement extends Command {
 		return $attributes;
 	}
 }
-
-}
