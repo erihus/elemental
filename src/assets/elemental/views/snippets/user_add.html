@@ -1,0 +1,47 @@
+<div class="mian container">
+    <div class="ui red segment">
+        <form  novalidate class="ui form" name="userForm">
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" name="name" ng-model="user.name" required="required"/>
+                <div ng-show="userForm.$submitted || userForm.name.$touched">
+                    <div class="ui visible error message" ng-show="userForm.name.$error.required">The name field is required</div>
+                </div>
+            </div>
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" name="email" ng-model="user.email" required="required" />
+                <div ng-show="userForm.$submitted || userForm.email.$touched">
+                    <div class="ui visible error message" ng-show="userForm.email.$error.required">The email field is required</div>
+                    <div class="ui visible error message" ng-show="userForm.email.$error.email">Must be a valid email address</div>
+                </div>
+                
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" name="password" ng-model="user.password" required="required" password-confirm="{{user.confirm_password}}">
+                <div ng-show="userForm.$submitted || userForm.password.$touched">
+                    <div class="ui visible error message" ng-show="userForm.password.$error.required">The password field is required</div>
+                </div>
+            </div>
+            <div class="field">
+                <label for="password_confirmation">Confirm Password</label>
+                <input type="password" name="password_confirmation" ng-model="user.password_confirmation" required="required" password-confirm="{{user.password}}">
+                <div ng-show="userForm.$submitted || userForm.password_confirmation.$touched">
+                    <div class="ui visible error message" ng-show="userForm.password_confirmation.$error.required">The password confirmation field is required</div>
+                    <div class="ui visible error message" ng-show="userForm.password_confirmation.$error.passwordConfirm">Passwords do not match</div>
+                </div>
+               
+            </div>
+            <div class="field">
+                <input class="ui red basic button" type="submit" id="submit" value="Save"  ng-click="addUser(user)"/>
+            </div>
+        </form>
+       <div class="ui success message" ng-model="user" ng-show="user.ok === true">User added successfully.</div>
+       <div ng-show="user.errors.length" ng-repeat="error in user.errors">
+            <div class="ui visible error message" style="margin-top: 10px">{{error}}</div>
+       </div>
+
+    </div>
+    <a ng-href="#users" class="ui icon basic red button"><i class="caret left icon"></i>Back to Users</a>
+</div>

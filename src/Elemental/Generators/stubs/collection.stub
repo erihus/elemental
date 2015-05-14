@@ -1,0 +1,17 @@
+<?php 
+
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+use Elemental\Collection;
+use Elemental\CollectionAttribute;
+
+class {{seed_name}}CollectionSeeder extends Seeder {
+
+    public function run()
+    {
+        $collection = Collection::create(['nickname' => '{{nickname}}', 'slug' => '{{slug}}', 'type' => '{{type}}']);
+        {{attributes}}               
+        
+    }   
+
+}

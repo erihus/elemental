@@ -1,0 +1,6 @@
+<!-- <i ng-hide="!collection.component.reorderable" class="move icon ng-hide"></i> -->
+    <form novalidate class="ui form" ng-submit="updateElement(element)" ng-model="element" name="elementForm">
+        <div cms-field class="field" ng-repeat="(name, type) in element.component.fields" fieldname="name" fieldtype="type" owner="element" form="elementForm"></div>
+        <input class="ui red basic button" type="submit" id="submit" value="Save" />
+    </form>
+    <div class="ui success message" ng-model="element" ng-show="element.ok === true">{{element.nickname}} updated.</div>

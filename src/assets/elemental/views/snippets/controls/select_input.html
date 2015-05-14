@@ -1,0 +1,12 @@
+<label for="{{ fieldname }}">{{label}}</label>
+<div class="ui search selection dropdown" cms-select owner="attribute">
+    <input ng-model="attribute" type="hidden" name="{{attribute.key}}">
+    <i class="dropdown icon"></i>
+    <div class="default text">{{defaultOption}}</div>
+        <div class="menu">
+            <div ng-repeat="option in options" class="item" data-value="{{option.value}}">{{option.name}}</div>
+        </div>
+</div>
+<div ng-show="owner.errors.{{fieldname}}.length" ng-repeat="error in owner.errors[fieldname]">
+    <div class="ui visible error message" style="margin-top: 10px">{{error}}</div>
+</div>

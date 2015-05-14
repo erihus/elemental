@@ -1,0 +1,37 @@
+<div class="ui segment">
+    <label for="{{ fieldname }}">{{label}}</label>
+    <cms-image model="owner" attribute="attribute">
+        <div flow-init="{target: 'api/file/upload'}" flow-name="owner.flow" flow-files-submitted="$flow.upload()">
+            <div class="ui basic blue button" flow-btn>
+              <i class="icon file"></i>
+              Select File
+           </div>
+           <div ng-show="attribute.width && attribute.height" class="ui blue pointing left label">{{attribute.width}}px X {{attribute.height}}px</div>
+
+            <div ng-if="attribute.value" class="ui basic segment">
+                <div class="ui card">
+                    <div class="image">
+                        <img src="{{attribute.value}}" />
+                    </div>
+                    <div class="content">
+                            <div class="description">Current Image</div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div ng-repeat="file in $flow.files">
+                <div class="ui basic segment">
+                    <div class="ui small blue progress file-progress" ng-class="{active: file.isUploading()}">
+                      <div class="bar" ng-style="{width: (file.progress() * 100) + '%'}" style="width: 100%;"></div>
+                      <div class="label">{{file.progress() * 100}}% Complete</div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </cms-image>
+    <div ng-show="owner.errors.{{fieldname}}.length" ng-repeat="error in owner.errors[fieldname]">
+        <div class="ui visible error message" style="margin-top: 10px">{{error}}</div>
+    </div>
+</div>

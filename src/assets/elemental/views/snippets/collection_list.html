@@ -1,0 +1,30 @@
+<div ng-if="collection.children.length">
+    <div class="ui hidden divider"></div>
+    <h3 class="ui header">{{collection.nickname}} Items</h3>
+</div>
+<div ng-model="collection">
+    <div id="{{collection.slug}}_sort_container" as-sortable="dragControlListeners" is-disabled="(collection.reorderable == 0) ? true : false" ng-model="collection.children">
+        <div ng-repeat="child in collection.children" ng-init="segColor = (child.component.prototype == 'element') ? 'blue' : 'yellow'" class="ui {{segColor}} segment child-section" as-sortable-item cms-collapsable>
+            <div class="ui {{segColor}} ribbon label">{{child.nickname}}</div>
+            <i ng-if="collection.reorderable == 1" as-sortable-item-handle class="move icon"></i>
+            <i class="expand icon collapse_toggle"></i>
+            <a ng-click="deleteItem(child)" ng-if="collection.addable == 1" class="ui icon basic circular red button"><i class="trash outline icon"></i></a>
+            <div cms-status owner="child" class="ui toggle checkbox">
+                <input type="checkbox" name="{{child.slug}}_published" ng-checked="child.status == 'published'">
+                <label>Published</label>
+            </div>
+            <div class="collapser collapsed">
+                <div class="ui hidden divider"></div>
+                <cms-element ng-if="child.component.prototype == 'element'" element="child"></cms-element>
+                <cms-collection ng-if="child.component.prototype == 'collection'" slug="{{child.slug}}"></cms-collection>
+            </div>
+        </div>
+    </div>
+    
+    <div ng-if="collection.addable == 1" class="ui basic segment">
+        <a cms-add collection="collection" class="ui basic green button"><i class="add icon"></i> Add Item</a>
+        <div ng-show="collection.addError === true">
+            <div class="ui visible error message" style="margin-top: 10px">Oops, something went wrong. Please try again. Make sure you are using a unique nickname.</div>
+        </div>
+    </div>
+</div>

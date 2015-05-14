@@ -1,0 +1,5 @@
+<label for="{{ fieldname }}">{{label}}</label>
+<selectize config="multiSelectConfig" options="options" ng-model="attribute.value"></selectize>
+<div ng-show="owner.errors.{{fieldname}}.length" ng-repeat="error in owner.errors[fieldname]">
+    <div class="ui visible error message" style="margin-top: 10px">{{error}}</div>
+</div>

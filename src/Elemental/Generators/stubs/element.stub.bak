@@ -1,0 +1,19 @@
+<?php 
+
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+use Elemental\Element;
+use Elemental\ElementAttribute;
+
+
+class {{seed_name}}ElementSeeder extends Seeder {
+
+    public function run()
+    {
+        $element = Element::create(['nickname' => '{{nickname}}', 'slug' => '{{slug}}', 'type' => '{{type}}']);
+
+        {{attributes}}               
+        
+    }   
+
+}

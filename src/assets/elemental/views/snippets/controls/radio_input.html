@@ -1,0 +1,9 @@
+<div class="inline fields">
+    <label for="{{ fieldname }}">{{label}}</label>
+    <div class="field" ng-repeat="option in options">
+        <div class="ui radio checkbox" cms-checkbox owner="attribute">
+            <input type="radio" name="{{attribute.key}}" ng-model="attribute.value" value="{{option.value}}" />
+            <label>{{option.name}}</label>
+        </div>  
+    </div>
+</div>

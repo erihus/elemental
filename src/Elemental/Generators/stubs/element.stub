@@ -1,0 +1,22 @@
+<?php 
+
+use Illuminate\Database\Seeder;
+
+
+class {{seed_name}}ElementSeeder extends Seeder {
+
+    public function run()
+    {
+        $element = Element::create(['nickname' => '{{nickname}}', 'slug' => '{{slug}}', 'type' => '{{type}}', 'attributes' => [{{attributes}}]], true);
+        if($element) {
+            echo 'Database seeded.';
+        } else {
+            $errors = Element::errors();
+            foreach($errors[0] as $err => $msg) {
+                echo $msg."\n";
+            }
+        }
+
+    }   
+
+}

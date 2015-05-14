@@ -1,0 +1,20 @@
+<div class="main container">
+      <table class="ui red striped table">
+      <thead>
+            <tr>
+                <th>Name</th>
+                <th class="right aligned">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in users">
+                <td>{{user.name}}</td>
+                <td class="right aligned"> 
+                    <a ng-href="#users/{{user.id}}/edit" class="ui icon basic circular green button"><i class="write icon"></i></a>
+                    <a ng-click="deleteUser(user)" class="ui icon basic circular red button"><i class="trash outline icon"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a ng-href="#users/add" class="ui basic green button"><i class="add icon"></i> Add User</a>
+</div>
