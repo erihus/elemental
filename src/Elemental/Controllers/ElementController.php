@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Element;
 use Collection;
 
-class ElementController extends Controller {
+class ElementController extends RootController {
 
     protected $request;
 

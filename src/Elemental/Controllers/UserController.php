@@ -9,7 +9,7 @@ use App\User;
 use Validator;
 use Auth;
 
-class UserController extends Controller {
+class UserController extends RootController {
 
 	protected $request;
 	protected $user;

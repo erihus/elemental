@@ -5,7 +5,7 @@ use Illuminate\Filesystem\Filesystem;
 use Image;
 use Storage;
 
-class FileController extends Controller {
+class FileController extends RootController {
 
 
    protected $request;

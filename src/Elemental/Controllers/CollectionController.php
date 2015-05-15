@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Collection;
 
 
-class CollectionController extends Controller {
+class CollectionController extends RootController {
 
     protected $request;
 
@@ -75,27 +75,6 @@ class CollectionController extends Controller {
 
       return response()->json($response);
     }
-
-    // public function showChildren($type) {
-    //     $type = studly_case($type);
-    //     $collection = Collection::readAll($type);
-    //     $data = $collection[0]['children'];
-    //     return response()->json($data);
-    // }
-
-    // public function showAssoc($slug, $children = null, $childType = null)
-    // {
-    //   $childType = studly_case($childType);
-    //   $collection = Collection::query(['slug' => $slug], false);
-    //   //dd($collection);
-    //   $data = [];
-    //   foreach ($collection[0]['children'] as $child) {
-    //     if($child['type'] == $childType) {
-    //       $data = $child['children'];
-    //     }
-    //   }
-    //   return response()->json($data);
-    // }
 
 
     public function edit($slug) {

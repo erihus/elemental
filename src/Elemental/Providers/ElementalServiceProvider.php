@@ -43,6 +43,11 @@ class ElementalServiceProvider extends ServiceProvider {
 		$this->publishes([
             __DIR__.'/../../views' => base_path('resources/views/vendor/elemental'),
         ], 'views');
+
+
+        $this->publishes([
+            __DIR__.'/../../views/auth' => base_path('resources/views/auth'),
+        ], 'auth_views');
 		
 		$this->publishes([
             __DIR__.'/../../assets/bower.json' => public_path('js/bower.json'),

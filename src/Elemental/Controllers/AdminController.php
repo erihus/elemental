@@ -3,7 +3,7 @@
 use Collection;
 use Blade;
 
-class AdminController extends Controller {
+class AdminController extends RootController {
 
 
 	/**
