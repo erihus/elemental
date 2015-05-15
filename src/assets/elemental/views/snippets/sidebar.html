@@ -6,106 +6,18 @@
         <a ng-href="/dashboard" class="item">Dashboard</a>
     </div>
 </div>
-<div ng-if="menus.length > 0" class="item">
-    <div class="ui  header">
-        <i class="list layout outline red icon"></i>
-    </div>
-    <div class="menu" ng-repeat="menu in menus">            
-        <a class="item" ng-href="#menu/{{menu.slug}}/edit">{{menu.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
-<div ng-if="pages.length > 0" class="item">
+
+<!-- Uncomment this once you have added pages. Use similar snippet to add more resource types to sidebar -->
+
+<!-- <div ng-if="pages.length > 0" class="item">
     <div class="ui header">
         <i class="file text outline red icon"></i>
     </div>
     <div class="menu" ng-repeat="page in pages">            
         <a class="item" ng-href="#page/{{page.slug}}/edit">{{page.nickname}}<i class="write icon"></i></a>
     </div>
-</div>
-<div ng-if="thank_you_pages.length > 0" class="item">
-    <div class="ui header">
-        <i class="smile red icon"></i>
-    </div>
-    <div class="menu" ng-repeat="ty in thank_you_pages">            
-        <a class="item" ng-href="#thank-you-page/{{ty.slug}}/edit">{{ty.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
-<div ng-if="products.length > 0" class="item">
-    <div class="ui header">
-        <i class="cubes outline red icon"></i>
-    </div>
-    <div class="menu" ng-repeat="product in products">            
-        <a class="item" ng-href="#product_category/{{product.slug}}/edit">{{product.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
+</div> -->
 
-<div ng-if="feature_list.length > 0" class="item">
-    <div class="ui header">
-        <i class="check circle outline red icon"></i>
-    </div>
-    <div class="menu" ng-repeat="feat in feature_list">            
-        <a class="item" ng-href="#feature_list/{{feat.slug}}/edit">{{feat.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
-
-
-
-<div class="item">
-    <div class="ui header">
-        <i class="university red icon"></i>
-    </div>
-    <div class="menu" ng-repeat="res in resource_list[0].children">
-      
-        <a class="item" ng-href="#collections/{{res.slug}}/edit">{{res.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
-
-<div ng-if="casestudy_list.length > 0" class="item">
-    <div class="ui header">
-        <i class="treatment red icon"></i>
-    </div>
-    <div class="menu" ng-repeat="cs in casestudy_list">            
-        <a class="item" ng-href="#casestudy_list/{{cs.slug}}/edit">{{cs.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
-<div ng-if="blogs.length > 0" class="item">
-    <div class="ui header">
-        <i class="feed outline red icon"></i>
-    </div>
-    <div class="menu" ng-repeat="blog in blogs">            
-        <a class="item" ng-href="#blog/{{blog.slug}}/edit">{{blog.nickname}}<i class="write icon"></i></a>
-    </div>
-    <div class="menu" ng-repeat="taglist in tags">
-        <a class="item" ng-href="#tags/{{taglist.slug}}/edit">{{taglist.nickname}}<i class="write icon"></i></a>
-    </div>
-
-</div>
-<div ng-if="settings.length > 0" class="item">
-    <div class="ui  header">
-        <i class="options outline red icon"></i>
-    </div>
-     <div class="menu" ng-repeat="setting in settings">
-        <a class="item" ng-href="#setting/{{setting.slug}}/edit" class="item">{{setting.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
-
-<div ng-if="tracking_codes.length > 0" class="item">
-    <div class="ui  header">
-        <i class="code red icon"></i>
-    </div>
-     <div class="menu" ng-repeat="tc in tracking_codes">
-        <a class="item" ng-href="#tracking-codes/{{tc.slug}}/edit" class="item">{{tc.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
-
-<div ng-if="redirects.length > 0" class="item">
-    <div class="ui  header">
-        <i class="random red icon"></i>
-    </div>
-     <div class="menu" ng-repeat="redirect in redirects">
-        <a class="item" ng-href="#redirect/{{redirect.slug}}/edit" class="item">{{redirect.nickname}}<i class="write icon"></i></a>
-    </div>
-</div>
 
 <div class="item">
     <div class="ui header">

@@ -27,7 +27,7 @@ class AdminController extends RootController {
 		Blade::setContentTags('<%', '%>');        // for variables and all things Blade
     	Blade::setEscapedContentTags('<%%', '%%>');   // for escaped data
 
-		return view('elemental::elemental.dashboard');
+		return view('elemental::dashboard');
 	}
 
 }

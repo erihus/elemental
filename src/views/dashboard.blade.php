@@ -1,5 +1,5 @@
 
-@extends('elemental.main')
+@extends('elemental::main')
 
 @section('content')
 
