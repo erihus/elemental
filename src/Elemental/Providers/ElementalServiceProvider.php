@@ -45,6 +45,8 @@ class ElementalServiceProvider extends ServiceProvider {
         ], 'views');
 
 
+        $this->loadViewsFrom(__DIR__.'/../../views/auth', 'auth');
+
         $this->publishes([
             __DIR__.'/../../views/auth' => base_path('resources/views/auth'),
         ], 'auth_views');

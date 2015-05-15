@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Elemental CMS</title>
 
-    <link href="/js/bower_components/semantic-ui/dist/semantic.css" rel='stylesheet' type='text/css'>
+    <link href="/js/elemental/ui/semantic-ui/semantic.css" rel='stylesheet' type='text/css'>
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
@@ -75,7 +75,7 @@
 </main>
 
  <script src="/js/bower_components/jquery/dist/jquery.min.js"></script>
- <script src="/js/bower_components/semantic-ui/dist/semantic.js"></script>
+ <script src="/js/elemental/ui/semantic-ui/semantic.js"></script>
  <script>
  	$('.ui.checkbox').checkbox();
  </script>
