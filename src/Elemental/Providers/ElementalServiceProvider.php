@@ -35,7 +35,7 @@ class ElementalServiceProvider extends ServiceProvider {
 
 
 		$this->publishes([
-		    __DIR__.'/../../database/migrations/' => database_path('/migrations')
+		    __DIR__.'/../../database/migrations/' => base_path('database/migrations')
 		], 'migrations');
 
 		$this->loadViewsFrom(__DIR__.'/../../views', 'elemental');
