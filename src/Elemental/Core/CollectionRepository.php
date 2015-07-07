@@ -9,6 +9,8 @@ use \ReflectionClass;
 
 class CollectionRepository implements CollectionInterface{
 
+    use \Illuminate\Console\AppNamespaceDetectorTrait;
+
    public function create(array $input) {
         try{
             $collection = Collection::create($input)->toArray();
@@ -253,7 +255,16 @@ class CollectionRepository implements CollectionInterface{
     private function _bootstrapComponent($protoType, $componentType) {
         $proto = ucfirst($protoType).'s';
         $componentArray = [];
-        $componentClassName = "Elemental\\Components\\".$proto."\\".$componentType."Component";
+        $vendorClassString = "Elemental\\Components\\".$proto."\\".$componentType."Component";
+        $appNamespace = $this->getAppNamespace();
+        $userClassString = $appNamespace.$vendorClassString; 
+
+        if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
+            $componentClassName = $vendorClassString;
+        } elseif(class_exists($userClassString)) { //check if selected component is a custom user component
+            $componentClassName = $userClassString;
+        }
+
         $component = new $componentClassName;
         $reflector = new ReflectionClass($componentClassName);
         $extendsFrom = $reflector->getParentClass();

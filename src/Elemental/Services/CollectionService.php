@@ -6,7 +6,8 @@ use Element;
 
 class CollectionService implements HubInterface {
 
-    
+    use \Illuminate\Console\AppNamespaceDetectorTrait;
+
     protected $element;
     protected $attributes;
     protected $collection;

@@ -27,7 +27,12 @@ class ComponentController extends RootController {
 	{
 		try {
 			$componentArray = [];
-	        $componentClassName = "\\Elemental\\Components\\".ucfirst($prototype)."s\\".ucfirst($type)."Component";
+	        
+			$vendorClassString = "Elemental\\Components\\".ucfirst($prototype)."s\\".studly_case($type)."Component";
+	        $appNamespace = $this->getAppNamespace();
+	        $userClassString = $appNamespace.$vendorClassString;
+	        $componentClassName = null;
+
 	        $component = new $componentClassName;
 	        $reflector = new ReflectionClass($componentClassName);
 	        $properties = $reflector->getProperties();

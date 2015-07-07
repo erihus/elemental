@@ -5,6 +5,7 @@ use Elemental\Core\Contracts\HubInterface;
 
 class ElementService implements HubInterface {
 
+    use \Illuminate\Console\AppNamespaceDetectorTrait;
     
     protected $element;
     protected $attribte;
