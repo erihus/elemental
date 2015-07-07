@@ -211,7 +211,7 @@ class ElementService implements HubInterface {
 
 
     protected function loadComponent($type) {
-        $vendorClassString = "Elemental\\Components\\Collections\\".$type.'Component';
+        $vendorClassString = "Elemental\\Components\\Elements\\".$type.'Component';
         $appNamespace = $this->getAppNamespace();
         $userClassString = $appNamespace.$vendorClassString; 
 
