@@ -151,7 +151,7 @@ class CreateElement extends Command {
 
         if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
             $this->component = new $vendorClassString;
-        } elseif(class_exists($userClassString)) {} //check if selected component is a custom user component
+        } elseif(class_exists($userClassString)) { //check if selected component is a custom user component
             $this->component = new $userClassString;
         }
 
