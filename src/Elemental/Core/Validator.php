@@ -5,6 +5,8 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class Validator extends BaseValidator{
 
+    use \Illuminate\Console\AppNamespaceDetectorTrait;
+
     protected $component;
     protected $data = [];
     protected $rules = [];
@@ -17,10 +19,10 @@ class Validator extends BaseValidator{
         parent::__construct($translator, $data, $rules, $messages = array(), $customAttributes = array());
     }
 
-    public function run($namespace, $component, $input, $is_cli = false)
+    public function run($prototype, $component, $input, $is_cli = false)
     {   
         $rules = [];
-        $this->loadComponent($namespace, $component);
+        $this->loadComponent($prototype, $component);
 
         //Check if input field types are allowed on component
         $inFields = '';
@@ -53,16 +55,25 @@ class Validator extends BaseValidator{
     }
 
 
-    protected function loadComponent($namespace, $component)
+    protected function loadComponent($prototype, $component)
     {
-        $componentClass = $this->getComponentClass($namespace, $component);
+        $componentClass = $this->getComponentClass($prototype, $component);
         $this->component = new $componentClass;
     }   
 
 
-    protected function getComponentClass($namespace, $component)
+    protected function getComponentClass($prototype, $component)
     {
-        return "Elemental\\Components\\".ucfirst($namespace)."s\\".ucfirst($component)."Component";
+
+        $vendorClassString = "Elemental\\Components\\".ucfirst($prototype)."s\\".ucfirst($component).'Component';
+        $appNamespace = $this->getAppNamespace();
+        $userClassString = $appNamespace.$vendorClassString; 
+
+        if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
+            return $vendorClassString;
+        } elseif(class_exists($userClassString)) { //check if selected component is a custom user component
+            return $userClassString;
+        }
     }
 
     
