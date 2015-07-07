@@ -11,6 +11,7 @@ use Collection;
 
 class CreateCollection extends Command {
 
+    use \Illuminate\Console\AppNamespaceDetectorTrait;
 
     protected $validator;
     protected $filesystem;
@@ -51,6 +52,7 @@ class CreateCollection extends Command {
         $this->validator = new Validator($translator, $data, $rules, $messages = array(), $customAttributes = array());
         $this->vendorDir = __DIR__.'/../../Components/Collections';
         $this->appDir = app_path().'/Elemental/Components/Collections';
+        $this->component = null;
         
     }
 
@@ -62,10 +64,12 @@ class CreateCollection extends Command {
     public function fire()
     {
         $componentList = $this->getComponents(); 
-        
         $this->componentType = $this->choice("What kind of collection do you want to create?", $componentList);
-        $classString = "Elemental\\Components\\Collections\\".$this->componentType.'Component';
-        $this->component = new $classString;        
+
+        $this->setComponent();
+
+        // $classString = "Elemental\\Components\\Collections\\".$this->componentType.'Component';
+        // $this->component = new $classString;        
         
         $this->loadAttributes();
 
@@ -149,6 +153,21 @@ class CreateCollection extends Command {
         }
 
         return $componentList;
+    }
+
+    protected function setComponent() {
+
+        
+        $vendorClassString = "Elemental\\Components\\Collections\\".$this->componentType.'Component';
+        $appNamespace = $this->getAppNamespace();
+        $userClassString = $appNamespace.$vendorClassString; 
+
+        if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
+            $this->component = new $vendorClassString;
+        } elseif(class_exists($userClassString)) {} //check if selected component is a custom user component
+            $this->component = new $userClassString;
+        }
+
     }
 
     protected function runValidation()

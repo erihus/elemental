@@ -11,6 +11,8 @@ use Element;
 
 class CreateElement extends Command {
 
+	use \Illuminate\Console\AppNamespaceDetectorTrait;
+
 	protected $filesystem;
 	protected $validator;
 	protected $classString;
@@ -58,10 +60,10 @@ class CreateElement extends Command {
 	public function fire()
 	{
 		$componentList = $this->getComponents(); 
-		
 		$this->componentType = $this->choice("What kind of element do you want to create?", $componentList);
-		$classString = "Elemental\\Components\\Elements\\".$this->componentType.'Component';
-		$this->component = new $classString;		
+		$this->setComponent();
+		// $classString = "Elemental\\Components\\Elements\\".$this->componentType.'Component';
+		// $this->component = new $classString;		
 		
 		$this->loadAttributes();
 
@@ -139,7 +141,21 @@ class CreateElement extends Command {
 
         return $componentList;
     }
-	}
+	
+	protected function setComponent() 
+	{
+       
+        $vendorClassString = "Elemental\\Components\\Elements\\".$this->componentType.'Component';
+        $appNamespace = $this->getAppNamespace();
+        $userClassString = $appNamespace.$vendorClassString; 
+
+        if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
+            $this->component = new $vendorClassString;
+        } elseif(class_exists($userClassString)) {} //check if selected component is a custom user component
+            $this->component = new $userClassString;
+        }
+
+    }
 
 	protected function runValidation()
 	{
