@@ -12,12 +12,13 @@ use Element;
 class CreateElement extends Command {
 
 	protected $filesystem;
-	// protected $generator;
 	protected $validator;
 	protected $classString;
 	protected $componentType;
 	protected $component;
 	protected $attributes;
+	protected $vendorDir;
+	protected $appDir;
 
 	/**
 	 * The console command name.
@@ -45,7 +46,8 @@ class CreateElement extends Command {
 		parent::__construct();
 		$this->filesystem = $filesystem;	
 		$this->validator = new Validator($translator);
-		$this->dir = __DIR__.'/../../Components/Elements';
+		$this->vendorDir = __DIR__.'/../../Components/Elements';
+        $this->appDir = app_path().'/Elemental/Components/Elements';
 	}
 
 	/**
@@ -119,16 +121,24 @@ class CreateElement extends Command {
 	public function getComponents()
 	{
 		$componentList = [];
-		$components = $this->filesystem->allFiles($this->dir);
-		foreach($components as $componentFile) {
-			$name = $this->filesystem->name($componentFile);
+        $vendorComponents = [];
+        $vendorComponents = $this->filesystem->allFiles($this->vendorDir);
+        $appComponents = [];
+        if($this->filesystem->exists($this->appDir)) {
+            $appComponents = $this->filesystem->allFiles($this->appDir);
+        }
+        $components = array_merge($vendorComponents, $appComponents); //TODO - figure out class inheritance/overload
 
-			if(preg_match('/^(.+)Component$/', $name, $matches)) {
-				array_push($componentList, $matches[1]);
-			}
-		}
+        foreach($components as $componentFile) {
+            $name = $this->filesystem->name($componentFile);
 
-		return $componentList;
+            if(preg_match('/^(.+)Component$/', $name, $matches)) {
+                array_push($componentList, $matches[1]);
+            }
+        }
+
+        return $componentList;
+    }
 	}
 
 	protected function runValidation()

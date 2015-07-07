@@ -18,6 +18,8 @@ class CreateCollection extends Command {
     protected $componentType;
     protected $component;
     protected $attributes;
+    protected $vendorDir;
+    protected $appDir;
 
     /**
      * The console command name.
@@ -47,7 +49,8 @@ class CreateCollection extends Command {
         $rules = [];
         $this->filesystem = $filesystem;
         $this->validator = new Validator($translator, $data, $rules, $messages = array(), $customAttributes = array());
-        $this->dir = __DIR__.'/../../Components/Collections';
+        $this->vendorDir = __DIR__.'/../../Components/Collections';
+        $this->appDir = app_path().'/Elemental/Components/Collections';
         
     }
 
@@ -129,7 +132,14 @@ class CreateCollection extends Command {
     public function getComponents()
     {
         $componentList = [];
-        $components = $this->filesystem->allFiles($this->dir);
+        $vendorComponents = [];
+        $vendorComponents = $this->filesystem->allFiles($this->vendorDir);
+        $appComponents = [];
+        if($this->filesystem->exists($this->appDir)) {
+            $appComponents = $this->filesystem->allFiles($this->appDir);
+        }
+        $components = array_merge($vendorComponents, $appComponents); //TODO - figure out class inheritance/overload
+
         foreach($components as $componentFile) {
             $name = $this->filesystem->name($componentFile);
 
