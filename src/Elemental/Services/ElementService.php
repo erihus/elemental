@@ -210,8 +210,18 @@ class ElementService implements HubInterface {
 
 
     protected function loadComponent($type) {
-        $className = "Elemental\\Components\\Elements\\".ucfirst($type)."Component";
-        return new $className;
+        $vendorClassString = "Elemental\\Components\\Collections\\".$type.'Component';
+        $appNamespace = $this->getAppNamespace();
+        $userClassString = $appNamespace.$vendorClassString; 
+
+        if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
+            return new $vendorClassString;
+        } elseif(class_exists($userClassString)) { //check if selected component is a custom user component
+            return new $userClassString;
+        }
+        
+        // $className = "Elemental\\Components\\Elements\\".ucfirst($type)."Component";
+        // return new $className;
     }
 
     
