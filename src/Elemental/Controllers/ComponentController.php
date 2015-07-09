@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class ComponentController extends RootController {
 
+	use \Illuminate\Console\AppNamespaceDetectorTrait;
+
 	protected $request;
 
     public function __construct(Request $request)
