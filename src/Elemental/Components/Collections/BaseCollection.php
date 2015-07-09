@@ -3,7 +3,6 @@
 
 abstract class BaseCollection {
     public $prototype = 'collection';
-    public $normalName;
     public $attachablePrototype;
     public $attachableComponent;
     public $attachableAddable;

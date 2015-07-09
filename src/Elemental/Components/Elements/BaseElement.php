@@ -4,7 +4,6 @@
 abstract class BaseElement {
     
     public $prototype = 'element';
-    public $normalName;
     public $fields = [];
     public $labels = [];
     public $options = [];
