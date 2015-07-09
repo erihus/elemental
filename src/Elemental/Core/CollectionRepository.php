@@ -94,13 +94,17 @@ class CollectionRepository implements CollectionInterface{
     public function order($slug, $childType, $childId, $childOrder) {
         try {
            $collection = $this->_findRaw($slug);
-           if($childType = 'element') {
-                $children = $collection->elements();
-           } elseif ($childType = 'collection') {
-                $children = $collection->collections();
+           if($childType == 'element') {
+                $child = $collection->elements()
+                    ->wherePivot('child_type', '=', $childType)
+                    ->wherePivot('child_id', '=', $childId);
+           } elseif ($childType == 'collection') {
+                $child = $collection->collections()
+                    ->wherePivot('child_type', '=', $childType)
+                    ->wherePivot('child_id', '=', $childId);
            }
 
-           $children->updateExistingPivot($childId, ['order' => $childOrder]);
+            $child->updateExistingPivot($childId, ['order' => $childOrder]);
            return true;
 
         } catch (Exception $e) {
