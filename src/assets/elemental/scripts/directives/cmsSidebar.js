@@ -26,7 +26,7 @@ angular.module('elementalApp').directive('cmsSidebar', ['Collection', function (
 
             //uncomment this after you have added pages
             // follow similar pattern for adding other resource types to sidebar
-            // scope.pages = Collection.query({type: 'page', isArray:true});            
+            // scope.pages = Collection.getByType({type: 'page', isArray:true});            
         },
 
         templateUrl: 'js/elemental/views/snippets/sidebar.html'
