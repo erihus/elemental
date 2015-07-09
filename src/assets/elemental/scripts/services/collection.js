@@ -8,7 +8,7 @@
  * Factory in the elementalApp.
  */
 angular.module('elementalApp').factory('Collection', function ($resource) {
-  return $resource('api/collection/type/:type/', null,
+  return $resource('api/collection', null,
       {
         //'associated': {method: 'GET', url: 'collections/:parentSlug/:children/:childType', isArray:true},
         'children' : {method: 'GET', url: 'api/collection/type/:type/children/', isArray:true},
