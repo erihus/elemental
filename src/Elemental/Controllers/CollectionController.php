@@ -85,8 +85,6 @@ class CollectionController extends RootController {
     public function update($slug) {
        $updated = $this->request->all();
 
-       die(print_r($updated));
-
        if(isset($updated['attributes'])) {
             return $this->_updateAttributes($slug, $updated['attributes']);
         } elseif (isset($updated['order'])) {
