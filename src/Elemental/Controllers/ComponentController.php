@@ -35,6 +35,12 @@ class ComponentController extends RootController {
 	        $userClassString = $appNamespace.$vendorClassString;
 	        $componentClassName = null;
 
+	        if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
+	            $componentClassName = $vendorClassString;
+	        } elseif(class_exists($userClassString)) { //check if selected component is a custom user component
+	            $componentClassName = $userClassString;
+	        }
+
 	        $component = new $componentClassName;
 	        $reflector = new ReflectionClass($componentClassName);
 	        $properties = $reflector->getProperties();
