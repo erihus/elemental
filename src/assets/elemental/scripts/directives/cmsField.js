@@ -23,23 +23,25 @@ angular.module('elementalApp').directive('cmsField', [ 'Collection', 'Element', 
                     pieces = route.split('/'),
                     query;
 
-                // console.log(pieces);
-                // debugger;
-
-                serviceName = pieces[1].charAt(0).toUpperCase() + pieces[1].slice(1, -1);
-                if(serviceName == 'Element') {
+                 //determine service type
+                serviceName = pieces[1]; //.charAt(0).toUpperCase() + pieces[1].slice(1, -1);
+                if(serviceName == 'element') {
                     service = Element;
                 } else {
                     service = Collection;
                 }
 
+                //determine query type and build query
                 if(pieces[4] == 'children') {
                     return service.children({type: pieces[3], isArray:true});
-                // } else if (pieces[1] == '[parent_slug]') {
-                //     var parent_slug = $route.current.params.slug;
-                //     return service.associated({ parentSlug: parent_slug, children: pieces[2], childType: pieces[3], isArray:true});
-                }else {
-                    return service.query({ type: pieces[3], isArray:true});
+                }
+
+                if(pieces[2] == 'type') {
+                    return service.getByType({type: pieces[3], isArray: true});
+                }
+
+                if(pieces[2] == 'slug') {
+                    return service.getBySlug({slug: pieces[3], isArray: true});
                 }
             }
 
