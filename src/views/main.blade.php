@@ -57,7 +57,7 @@
     
     <script src="/js/elemental/ui/redactor/redactor.js"></script>
     <script src="/js/elemental/ui/redactor/plugins/video.js"></script>
-    <script src="/js/elemental/ui/redactor/plugins/definedLinks.js"></script>
+    <script src="/js/elemental/ui/redactor/plugins/definedlinks.js"></script>
     <script src="/js/elemental/ui/redactor/plugins/table.js"></script>
     <script src="/js/elemental/ui/redactor/plugins/imagemanager.js"></script>
     <script src="/js/elemental/ui/redactor/plugins/fullscreen.js"></script>
