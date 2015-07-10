@@ -4,7 +4,7 @@
     <i class="dropdown icon"></i>
     <div class="default text">{{defaultOption}}</div>
         <div class="menu">
-            <div ng-repeat="option in options" class="item" data-value="{{option.value}}">{{option.name}}</div>
+            <div ng-repeat="option in options track by $index" class="item" data-value="{{option.value}}">{{option.name}}</div>
         </div>
 </div>
 <div ng-show="owner.errors.{{fieldname}}.length" ng-repeat="error in owner.errors[fieldname]">
