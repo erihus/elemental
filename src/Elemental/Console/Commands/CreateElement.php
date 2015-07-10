@@ -148,12 +148,17 @@ class CreateElement extends Command {
         $vendorClassString = "Elemental\\Components\\Elements\\".$this->componentType.'Component';
         $appNamespace = $this->getAppNamespace();
         $userClassString = $appNamespace.$vendorClassString; 
+		$className = null;
 
         if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
-            $this->component = new $vendorClassString;
-        } elseif(class_exists($userClassString)) { //check if selected component is a custom user component
-            $this->component = new $userClassString;
+            $className = $vendorClassString;
+        } 
+
+        if(class_exists($userClassString)) { //check if selected component is a custom user component
+            $className = $userClassString;
         }
+
+        $this->component = new $className;
 
     }
 
