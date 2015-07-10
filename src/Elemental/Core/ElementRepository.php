@@ -100,7 +100,9 @@ class ElementRepository implements ElementInterface {
 
         if(class_exists($vendorClassString)) { //check if selected component exists in vendor dir
             $componentClassName = $vendorClassString;
-        } elseif(class_exists($userClassString)) { //check if selected component is a custom user component
+        } 
+
+        if(class_exists($userClassString)) { //check if selected component is a custom user component
             $componentClassName = $userClassString;
         }
         
