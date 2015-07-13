@@ -23,9 +23,9 @@ angular.module('elementalApp').directive('cmsImage', ['$cookies', function () {
         link: function(scope, element) {
 
             var field = scope.attribute.key,
-                sizeStr = field.substr(0,4);
+                sizeStr = field.substr(0,3);
 
-            if(sizeStr != 'med' || sizeStr != 'sml' || sizeStr != 'lrg' ) {
+            if(sizeStr != 'med' && sizeStr != 'sml' && sizeStr != 'lrg' ) {
                 var widthKey = 'width';
                 var heightKey = 'height';
             } else {
@@ -34,7 +34,7 @@ angular.module('elementalApp').directive('cmsImage', ['$cookies', function () {
             }
 
             scope.attribute.width = null;
-            scope.attribute.height - null;
+            scope.attribute.height = null;
 
             angular.forEach(scope.model.attributes, function(attr){
                 if(attr.key == widthKey) {
