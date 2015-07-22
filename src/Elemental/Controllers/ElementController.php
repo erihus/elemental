@@ -86,9 +86,9 @@ class ElementController extends RootController {
     }
 
 
-    public function destroy($childSlug, $parentSlug = null) {
+    public function destroy($childSlug) {
         try {
-           if(Element::delete($childSlug, $parentSlug)){
+           if(Element::delete($childSlug)){
                return response()->json(['ok' => 1], 200); 
            } else {
                 return response()->json(['ok'=>0, 'errors'=>Element::errors()], 500);
