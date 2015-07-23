@@ -74,7 +74,7 @@ class ElementService implements HubInterface {
         foreach($elements as $element) {
             foreach($element['attributes'] as $key => $val) {
                 if($key == $attrKey && $val == $attrValue) {
-                    $return = $element;
+                    array_push($return, $element);
                 }
             }
         }

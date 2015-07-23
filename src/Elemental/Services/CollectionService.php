@@ -73,7 +73,7 @@ class CollectionService implements HubInterface {
         foreach($collections as $collection) {
             foreach($collection['attributes'] as $key => $val) {
                 if($key == $attrKey && $val == $attrValue) {
-                    $return = $collection;
+                    array_push($return, $collection);
                 }
             }
         }
