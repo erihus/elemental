@@ -53,9 +53,14 @@ angular.module('elementalApp').directive('cmsImage', ['$cookies', function () {
             fileFlow.opts.headers = scope.getXSRF();
             fileFlow.opts.singleFile = true;
 
-            if(scope.attribute.height && scope.attribute.width) {
+            if(scope.attribute.width) {
                 fileFlow.opts.query = {
-                    width: scope.attribute.width,
+                    width: scope.attribute.width
+                };
+            }
+
+            if(scope.attribute.height) {
+                fileFlow.opts.query = {
                     height: scope.attribute.height
                 };
             }

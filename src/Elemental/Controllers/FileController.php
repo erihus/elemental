@@ -43,30 +43,36 @@ class FileController extends RootController {
             $dest = public_path().'/uploads';
             $file->move($dest, $fileName.'.'.$ext);
 
-            if(!is_null($width) && !is_null($height)) {
+            if(!is_null($width) || !is_null($height)) {
                 if(!file_exists(public_path().'/uploads/thumbs')) {
                     mkdir(public_path().'/uploads/thumbs');
                 }
                 
-                $img = Image::make($dest.'/'.$fileName.'.'.$ext)->resize($width, $height)->save();
+                $img = Image::make($dest.'/'.$fileName.'.'.$ext)->resize($width, $height, function($constraint){
+                    $constraint->aspectRatio();
+                })->save();
                 $img->resize(100,100)->save($dest."/thumbs/".$fileName.'.'.$ext);
-                if(!is_null($med_width) && !is_null($med_height)) {
-                    Image::make($dest.'/'.$fileName.'.'.$ext)->resize($med_width,$med_height)->save($dest."/".$fileName.'_med.'.$ext);
+                if(!is_null($med_width) || !is_null($med_height)) {
+                    Image::make($dest.'/'.$fileName.'.'.$ext)->resize($med_width,$med_height, function($constraint){
+                        $constraint->aspectRatio();
+                    })->save($dest."/".$fileName.'_med.'.$ext);
                 }
 
-                if(!is_null($sml_width) && !is_null($sml_height)) {
-                    Image::make($dest.'/'.$fileName.'.'.$ext)->resize($sml_width,$sml_height)->save($dest."/".$fileName.'_sml.'.$ext);
+                if(!is_null($sml_width) || !is_null($sml_height)) {
+                    Image::make($dest.'/'.$fileName.'.'.$ext)->resize($sml_width,$sml_height, function($constraint){
+                        $constraint->aspectRatio();
+                    })->save($dest."/".$fileName.'_sml.'.$ext);
                 }
                 
             }   
 
             $response = ['ok'=>1, 'path'=>"uploads/".$fileName.".".$ext];
 
-            if(!is_null($med_width) && !is_null($med_height)) {
+            if(!is_null($med_width) || !is_null($med_height)) {
                 $response['med_path'] = "uploads/".$fileName."_med.".$ext;
             }
 
-             if(!is_null($sml_width) && !is_null($sml_height)) {
+             if(!is_null($sml_width) || !is_null($sml_height)) {
                 $response['sml_path'] = "uploads/".$fileName."_sml.".$ext;
             }
 

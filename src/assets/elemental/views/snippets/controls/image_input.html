@@ -6,7 +6,9 @@
               <i class="icon file"></i>
               Select File
            </div>
-           <div ng-show="attribute.width && attribute.height" class="ui blue pointing left label">{{attribute.width}}px X {{attribute.height}}px</div>
+            <div ng-show="attribute.width || attribute.height" class="ui blue pointing left label">
+                <span ng-if="attribute.width">Width: {{attribute.width}}px</span> <span ng-if="attribute.height">X {{attribute.height}}px</span>
+           </div>
 
             <div ng-if="attribute.value" class="ui basic segment">
                 <div class="ui card">
