@@ -33,7 +33,7 @@ angular.module('elementalApp').directive('cmsField', [ 'Collection', 'Element', 
 
                 //determine query type and build query
                 if(pieces[4] == 'children') {
-                    return service.children({type: pieces[3], isArray:true});
+                    return service.children({lookup: pieces[2], type: pieces[3], isArray:true});
                 }
 
                 if(pieces[2] == 'type') {
