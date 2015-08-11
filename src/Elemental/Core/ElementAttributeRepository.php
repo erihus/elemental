@@ -34,7 +34,7 @@ class ElementAttributeRepository implements ElementAttributeInterface {
                 $attribute = $this->_fetchAttribute($element, $key);
 
                 if(is_null($attribute)) { // if attribute does not exist on the colleciton  try to create it
-                    if($this->createAndAttach($elementSlug, $input)) {
+                    if($this->createAndAttach($elementSlug, [$key => $val])) {
                         $attribute = $this->_fetchAttribute($element, $key);
                     } else {
                         die('Could not add new attribute');

@@ -37,7 +37,7 @@ class CollectionAttributeRepository implements CollectionAttributeInterface {
                 $attribute = $this->_fetchAttribute($collection, $key);
 
                 if(is_null($attribute)) { // if attribute does not exist on the colleciton  try to create it
-                    if($this->createAndAttach($collectionSlug, $input)) {
+                    if($this->createAndAttach($collectionSlug, [$key => $val])) {
                         $attribute = $this->_fetchAttribute($collection, $key);
                     } else {
                         //die('Could not add new attribute');
