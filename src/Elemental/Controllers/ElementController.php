@@ -43,14 +43,12 @@ class ElementController extends RootController {
     
     public function update($slug) {
        $updated = $this->request->all();
-       if(isset($updated['attributes'])) {
-            return $this->_updateAttributes($slug, $updated['attributes']);
-        } elseif (isset($update['order'])) {
-            return $this->_updateOrder($slug, $order);
-        } elseif (isset($updated['status'])) {
-            return $this->_updateMetadata($slug, $updated);
-        }
-      
+        
+       if(!$this->_updateAttributes($slug, $updated['attributes']) || !$this->_updateMetadata($slug, $updated)) {
+          return response()->json(['ok'=>0, 'errors'=>Element::errors()], 500); 
+       } else {
+          return response()->json(['ok' => 1], 200); 
+       }      
     }
 
 
@@ -86,9 +84,9 @@ class ElementController extends RootController {
     }
 
 
-    public function destroy($childSlug) {
+    public function destroy($slug) {
         try {
-           if(Element::delete($childSlug)){
+           if(Element::delete($slug)){
                return response()->json(['ok' => 1], 200); 
            } else {
                 return response()->json(['ok'=>0, 'errors'=>Element::errors()], 500);
@@ -122,29 +120,17 @@ class ElementController extends RootController {
           $attrUpdates[$attribute['key']] = (isset($attribute['value'])) ? $attribute['value'] : null;
         }
 
-        if(!Element::update($slug, $attrUpdates)) {
-          $errors = Element::errors();
-          return response()->json(['ok'=>0, 'errors'=>$errors], 500);  
-        } else { 
-          return response()->json(['ok' => 1], 200);
+        if(Element::update($slug, $attrUpdates)) {
+          return true;
         }
-    }
-
-    private function _updateOrder($slug, $order) {
-       if(!Element::updateOrder($slug, $order)) {
-            $errors = Element::errors();
-            return response()->json(['ok'=>0, 'errors'=>$errors], 500);    
-        } else { 
-            return response()->json(['ok' => 1], 200);
-        }
+        return false;
     }
 
      private function _updateMetadata($slug, $updates) {
-      if(!Element::updateMeta($slug, $updates)){
-        $errors = Collection::errors();
-        return response()->json(['ok'=>0, 'errors'=>$errors], 500);  
-      } else {
-        return response()->json(['ok' => 1], 200);
+      if(Element::updateMeta($slug, $updates)){
+        return true;
       }
+      return false;
+      
     }
 }

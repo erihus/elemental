@@ -1,5 +1,12 @@
 <!-- <i ng-hide="!collection.component.reorderable" class="move icon ng-hide"></i> -->
     <form novalidate class="ui form" ng-submit="updateElement(element)" ng-model="element" name="elementForm">
+    	<div class="field required">
+			<label for="nickname">Nickname <i cms-popup class="small help circle icon" data-content="Nickname used fo CMS reference only"></i></label>
+    		<input name="nickname" required type="text" ng-model="element.nickname" />
+    		 <div ng-show="elementForm.nickname.$error.required">
+                <div class="ui visible error message" style="margin-top: 10px">Nickname field required</div>
+            </div>
+    	</div>
         <div cms-field class="field" ng-repeat="(name, type) in element.component.fields" fieldname="name" fieldtype="type" owner="element" form="elementForm"></div>
         <input class="ui red basic button" type="submit" id="submit" value="Save" />
     </form>

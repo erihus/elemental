@@ -197,8 +197,9 @@ angular.module('elementalApp').directive('cmsField', [ 'Collection', 'Element', 
           
             scope.rules = scope.owner.component.rules[scope.fieldname];
          
+            scope.required = '';
             if(scope.rules) {
-                scope.required = (scope.rules.indexOf('required') > -1) ? 'required' : null;
+                scope.required = (scope.rules.indexOf('required') > -1) ? 'required' : '';
             }
 
 

@@ -83,15 +83,14 @@ class CollectionController extends RootController {
 
 
     public function update($slug) {
-       $updated = $this->request->all();
-
-       if(isset($updated['attributes'])) {
-            return $this->_updateAttributes($slug, $updated['attributes']);
-        } elseif (isset($updated['order'])) {
-            return $this->_updateOrder($slug, $updated['type'], $updated['id'], $updated['order']);
-        } elseif (isset($updated['status'])) {
-            return $this->_updateMetadata($slug, $updated);
-        }
+      $updated = $this->request->all();
+      if (isset($updated['order'])) {
+        return $this->_updateOrder($slug, $updated['type'], $updated['id'], $updated['order']);
+      } else if(!$this->_updateAttributes($slug, $updated['attributes']) || !$this->_updateMetadata($slug, $updated)) {
+          return response()->json(['ok'=>0, 'errors'=>Collection::errors()], 500); 
+      } else {
+          return response()->json(['ok' => 1], 200); 
+      }
     }
 
 
@@ -145,12 +144,11 @@ class CollectionController extends RootController {
           $attrUpdates[$attribute['key']] = (isset($attribute['value'])) ? $attribute['value'] : null;
        }
 
-        if(!Collection::update($slug, $attrUpdates)) {
-          $errors = Collection::errors();
-          return response()->json(['ok'=>0, 'errors'=>$errors], 500);  
-        } else { 
-          return response()->json(['ok' => 1], 200);
-        }
+        if(Collection::update($slug, $attrUpdates)) {
+          return true;
+        } 
+
+        return false;
     }
 
     private function _updateOrder($slug, $type, $id, $order) {
@@ -163,12 +161,11 @@ class CollectionController extends RootController {
     }
 
     private function _updateMetadata($slug, $updates) {
-      if(!Collection::updateMeta($slug, $updates)){
-        $errors = Collection::errors();
-        return response()->json(['ok'=>0, 'errors'=>$errors], 500);  
-      } else {
-        return response()->json(['ok' => 1], 200);
-      }
+      if(Collection::updateMeta($slug, $updates)){
+        return true;
+      } 
+
+      return false;
     }
 
 

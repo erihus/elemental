@@ -99,6 +99,7 @@
     <script src="/js/elemental/scripts/directives/cmsSidebar.js"></script>
     <script src="/js/elemental/scripts/directives/cmsSelect.js"></script>
     <script src="/js/elemental/scripts/directives/cmsCheckbox.js"></script>
+    <script src="/js/elemental/scripts/directives/cmsPopup.js"></script>
     <script src="/js/elemental/scripts/directives/cmsModal.js"></script>
     <script src="/js/elemental/scripts/directives/cmsCollapsable.js"></script>
     <script src="/js/elemental/scripts/directives/passwordConfirm.js"></script>

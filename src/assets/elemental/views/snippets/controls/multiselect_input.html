@@ -3,3 +3,6 @@
 <div ng-show="owner.errors.{{fieldname}}.length" ng-repeat="error in owner.errors[fieldname]">
     <div class="ui visible error message" style="margin-top: 10px">{{error}}</div>
 </div>
+<div ng-show="form.{{fieldname}}.$error.required">
+    <div class="ui visible error message" style="margin-top: 10px">{{label}} field required</div>
+</div>

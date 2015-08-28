@@ -15,14 +15,7 @@ angular.module('elementalApp').directive('cmsCollection', function () {
             slug: '@slug',
         },
         link: function(scope, element) {
-            var collection = scope.fetchCollection(scope.slug);
-            collection.then(function(collection) {
-                angular.forEach(scope.collection.component.fields, function(field) {
-                    if(field != 'meta') {
-                        scope.editableFields = true;
-                    }
-                });
-            });
+            scope.fetchCollection(scope.slug);
         }       
     };
 });

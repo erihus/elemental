@@ -1,4 +1,4 @@
-<div class="ui red segment" ng-if="editableFields === true"  cms-collapsable>
+<div class="ui red segment" cms-collapsable>
     <div class="ui red ribbon label">{{collection.nickname}} Settings</div>
     <i class="compress icon collapse_toggle"></i>
     <div ng-if="collection.type == 'Page'" cms-status owner="collection" class="ui toggle checkbox">
@@ -8,16 +8,21 @@
         <div class="ui hidden divider"></div>
         <div class="basic segment collapser expanded">
             <form novalidate class="ui form" ng-submit="updateCollection(collection)" ng-model="collection" name="collectionForm">
-              <!--  <div class="field">
-                    <label for="nickname">Nickname</label>
-                   <input type="text" name="nickname" ng-model="collection.nickname" />
+              <div class="field required">
+                    <label for="nickname">Nickname <i cms-popup class="small help circle icon" data-content="Nickname used fo CMS reference only"></i></label>
+                    <input type="text" name="nickname" ng-model="collection.nickname" />
+                    <div ng-show="collectionForm.nickname.$error.required">
+                        <div class="ui visible error message" style="margin-top: 10px">Nickname field required</div>
+                    </div>
                </div>
+               <!--
                 <div class="field">
                     <label for="slug">Slug</label>
                     <input type="text" name="slug" ng-model="collection.slug" />
                 </div> -->
                 <div cms-field class="field" ng-repeat="(name, type) in collection.component.fields" fieldname="name" fieldtype="type" owner="collection" form="collectionForm"></div>
-                <input class="ui red basic button" type="submit" id="submit" value="Save" />
+
+                <input ng-if="collectionForm.$valid" class="ui red basic button" type="submit" id="submit" value="Save" />
             </form>
         </div>
         <div class="ui success message" ng-model="collection.ok" ng-show="collection.ok === true">Collection info updated.</div>
