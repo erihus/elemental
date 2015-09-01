@@ -7,25 +7,27 @@
  * # CollectionCtrl
  * Controller of the elementalApp
  */
-angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route', '$q', 'Collection', 'Element',  function($scope, $route, $q, Collection, Element){
+angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route', '$q', '$location', 'Collection', 'Element',  function($scope, $route, $q, $location, Collection, Element){
         
     
-    $scope.fetchCollection = function(slug) {
-        if(!slug) {
-            slug = $route.current.params.slug;  
+    
+        if(!$scope.collection) {
+            var slug = $route.current.params.slug;  
         }
         $scope.collection = {};
-        return $q(function(resolve, reject) {
+        $q(function(resolve, reject) {
             Collection.edit({slug: slug}, function(res){
                 $scope.collection = res;
                 $scope.collection.errors = null;
                 resolve($scope.collection);
+
+                $('.async-loader').fadeOut().siblings('.container').removeClass('hidden');
             });
         });
         
         
         
-    }   
+    
 
 
     $scope.updateCollection = function(collection) {
@@ -68,21 +70,8 @@ angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route',
         }
     };   
 
-    $scope.updateElement = function(element) {
-        $scope.element = element;
-        $scope.element.errors = null;
-        Element.update({slug: element.slug}, element, function(res) {
-            $scope.element.ok = true;
-            $scope.element.errors = null;
-        }, 
-        function(err) {
-            $scope.element.errors = err.data.errors[0];
-            $scope.element.ok = false;
-        });
-    };
-    
 
-    $scope.reorderElement = function(type, id, order) {
+    $scope.reorder = function(type, id, order) {
         $scope.collection.reorderOK = null;
         Collection.update({slug: $scope.collection.slug}, {type: type, id:id, order: order}, function(res) {
             $scope.collection.reorderOk = true;
@@ -105,7 +94,7 @@ angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route',
                 var type = model.component.prototype;
                 var id = model.id;
                 var order =listModels.indexOf(model)+1;
-                $scope.reorderElement(type, id, order);
+                $scope.reorder(type, id, order);
             });
 
         }

@@ -7,7 +7,7 @@
     <title>Elemental CMS</title>
 
     
-    <!--<link href="/css/app.css" rel="stylesheet">-->
+    <link href="/js/elemental/ui/elemental.css" rel="stylesheet">
     <link href="/js/elemental/ui/semantic-ui/semantic.css" rel='stylesheet' type='text/css'>
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -28,27 +28,38 @@
     <![endif]-->
 </head>
 <body>
-    <div class="pusher">
-        <nav class="ui main menu">
-            <a class="view-ui right item sidebar-toggle">
-              <i class="sidebar icon"></i> Menu
-            </a>
-        
-        
-            <div class="ui dropdown item">
-                <% Auth::user()->name %> <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="/auth/logout">Logout</a>
-                </div>
-                
-                
+    
+    <nav class="ui main menu">
+        <a class="view-ui right item sidebar-toggle">
+          <i class="sidebar icon"></i> Menu
+        </a>
+    
+    
+        <div class="ui dropdown item">
+            <% Auth::user()->name %> <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="/auth/logout">Logout</a>
             </div>
-               
-        </nav>
-        
-        @yield('content')
-    </div>
+            
+            
+        </div>
+           
+    </nav>
+    
 
+    <div class="ui right wide vertical sidebar menu icon" cms-sidebar></div>
+    @yield('content')
+    
+
+    <div class="ui page dimmer edit-view">
+        <div class="container">
+            <div class="ui segment">
+                <a class="close-edit right"><i class="ui black icon close"></i></a>
+                <h3 class="header"></h3>
+                <div class="content"></div>
+            </div>
+        </div>
+    </div>
     
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -84,6 +95,7 @@
     <script src="/js/elemental/scripts/app.js"></script>
     <script src="/js/elemental/scripts/controllers/dashCtrl.js"></script>
     <script src="/js/elemental/scripts/controllers/collectionCtrl.js"></script>
+    <script src="/js/elemental/scripts/controllers/elementCtrl.js"></script>
     <script src="/js/elemental/scripts/controllers/userCtrl.js"></script>
     <script src="/js/elemental/scripts/services/collection.js"></script>
     <script src="/js/elemental/scripts/services/element.js"></script>
@@ -101,6 +113,7 @@
     <script src="/js/elemental/scripts/directives/cmsCheckbox.js"></script>
     <script src="/js/elemental/scripts/directives/cmsPopup.js"></script>
     <script src="/js/elemental/scripts/directives/cmsModal.js"></script>
+    <script src="/js/elemental/scripts/directives/cmsBack.js"></script>
     <script src="/js/elemental/scripts/directives/cmsCollapsable.js"></script>
     <script src="/js/elemental/scripts/directives/passwordConfirm.js"></script>
     <!-- endbuild -->

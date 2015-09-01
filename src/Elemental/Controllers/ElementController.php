@@ -39,6 +39,9 @@ class ElementController extends RootController {
     }
 
 
+    public function edit($slug) {
+      return response()->json(Element::read($slug));
+    }
 
     
     public function update($slug) {

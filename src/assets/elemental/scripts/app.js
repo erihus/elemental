@@ -40,9 +40,13 @@ angular.module('elementalApp', [
         method: 'edit',
         templateUrl: '/js/elemental/views/snippets/user_edit.html'
       })
-      .when('/:type/:slug/edit', {
+      .when('/collection/:slug/edit', {
         controller: 'CollectionCtrl',
-        templateUrl: '/js/elemental/views/collection.html',
+        templateUrl: '/js/elemental/views/snippets/collection_edit.html',
+      })
+      .when('/element/:slug/edit', {
+        controller: 'ElementCtrl',
+        templateUrl: '/js/elemental/views/snippets/element_edit.html',
       });
       
 }).config( function(redactorOptions) {

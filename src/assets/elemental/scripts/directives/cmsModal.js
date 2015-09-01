@@ -10,7 +10,7 @@ angular.module('elementalApp').directive('cmsModal', function () {
     return {
         restrict: 'EA',
         link: function(scope, element) {
-            element.modal({debug :true});
+            element.modal({observeChanges: true});
         }
 
     };

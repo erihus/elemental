@@ -1,0 +1,11 @@
+.edit-view .container{
+	margin-top: 5%;
+	max-height: 90%;
+	overflow: scroll;
+	padding: 15px;
+
+}
+
+.right {
+	float: right;
+}

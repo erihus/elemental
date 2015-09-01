@@ -12,11 +12,11 @@ angular.module('elementalApp').directive('cmsCollection', function () {
         controller: 'CollectionCtrl',
         templateUrl: 'js/elemental/views/snippets/collection_edit.html',
         scope: {
-            slug: '@slug',
-        },
-        link: function(scope, element) {
-            scope.fetchCollection(scope.slug);
-        }       
+            collection: '=',
+        }
+        // link: function(scope, element) {
+        //     scope.fetchCollection(scope.slug);
+        // }       
     };
 });
 
