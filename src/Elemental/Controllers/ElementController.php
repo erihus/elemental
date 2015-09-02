@@ -47,7 +47,7 @@ class ElementController extends RootController {
     public function update($slug) {
        $updated = $this->request->all();
         
-       if(!$this->_updateAttributes($slug, $updated['attributes']) || !$this->_updateMetadata($slug, $updated)) {
+       if( (isset($this->updated['attributes']) && !$this->_updateAttributes($slug, $updated['attributes']) ) || !$this->_updateMetadata($slug, $updated)) {
           return response()->json(['ok'=>0, 'errors'=>Element::errors()], 500); 
        } else {
           return response()->json(['ok' => 1], 200); 

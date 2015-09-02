@@ -86,7 +86,7 @@ class CollectionController extends RootController {
       $updated = $this->request->all();
       if (isset($updated['order'])) {
         return $this->_updateOrder($slug, $updated['type'], $updated['id'], $updated['order']);
-      } else if(!$this->_updateAttributes($slug, $updated['attributes']) || !$this->_updateMetadata($slug, $updated)) {
+      } else if( ( isset($this->updated['attributes']) && !$this->_updateAttributes($slug, $updated['attributes']) ) || !$this->_updateMetadata($slug, $updated)) {
           return response()->json(['ok'=>0, 'errors'=>Collection::errors()], 500); 
       } else {
           return response()->json(['ok' => 1], 200); 
