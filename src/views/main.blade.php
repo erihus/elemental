@@ -108,6 +108,7 @@
     <script src="/js/elemental/scripts/directives/cmsAdd.js"></script>
     <script src="/js/elemental/scripts/directives/cmsField.js"></script>
     <script src="/js/elemental/scripts/directives/cmsImage.js"></script>
+    <script src="/js/elemental/scripts/directives/cmsThumb.js"></script>
     <script src="/js/elemental/scripts/directives/cmsSidebar.js"></script>
     <script src="/js/elemental/scripts/directives/cmsSelect.js"></script>
     <script src="/js/elemental/scripts/directives/cmsCheckbox.js"></script>

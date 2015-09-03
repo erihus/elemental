@@ -13,6 +13,8 @@ abstract class BaseCollection {
     public $rules = []; 
     public $generator_rules = [];
     public $slug_generator = [];
+    public $childThumbView;
+    public $childThumbField;
 }
 
 

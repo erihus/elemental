@@ -8,7 +8,7 @@
             <div class="ui {{segColor}} ribbon label">{{child.nickname}}</div>
             <i ng-if="collection.reorderable == 1" as-sortable-item-handle class="move icon"></i>
             <!-- <i class="expand icon collapse_toggle"></i> -->
-            <a ng-click="deleteItem(child)" ng-if="collection.addable == 1" class="ui icon basic circular red button"><i class="trash outline icon"></i></a>
+            <a ng-click="deleteItem(child)" ng-if="collection.addable == 1" class="ui icon basic circular red button right"><i class="trash outline icon"></i></a>
             <a ng-href="#/{{child.component.prototype}}/{{child.slug}}/edit" class="ui icon basic circular green button right" slug="child.slug" type="child.component.prototype"><i class="write icon"></i></a>
             <div cms-status owner="child" class="ui toggle checkbox">
                 <input type="checkbox" name="{{child.slug}}_published" ng-checked="child.status == 'published'">

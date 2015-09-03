@@ -9,27 +9,34 @@
  */
 angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route', '$q', '$location', 'Collection', 'Element',  function($scope, $route, $q, $location, Collection, Element){
         
-    
-    
-        if(!$scope.collection) {
-            var slug = $route.current.params.slug;  
-        }
-        $scope.collection = {};
-        $q(function(resolve, reject) {
-            Collection.edit({slug: slug}, function(res){
-                $scope.collection = res;
-                $scope.collection.errors = null;
-                resolve($scope.collection);
+    $scope.showViewToggle = false;
+    $scope.viewOptions = {
+        options: [
+          {val: 'list', name: 'List'},
+          {val: 'thumbs', name: 'Thumbs'}
+        ],
+        selectedOption: {val: 'list', name: 'List'} 
+    };
 
-                $('.async-loader').fadeOut().siblings('.container').removeClass('hidden');
-            });
+    if(!$scope.collection) {
+        var slug = $route.current.params.slug;  
+    }
+    $scope.collection = {};
+    $q(function(resolve, reject) {
+        Collection.edit({slug: slug}, function(res){
+            $scope.collection = res;
+            $scope.collection.errors = null;
+            resolve($scope.collection);
+
+            if(res.component.childThumbView) {
+                $scope.showViewToggle = true;
+                $scope.viewOptions.selectedOption = {val:'thumbs', name: "Thumbs"};
+            }
+
+            $('.async-loader').fadeOut().siblings('.container').removeClass('hidden');
         });
+    });
         
-        
-        
-    
-
-
     $scope.updateCollection = function(collection) {
         $scope.collection = collection;
         $scope.collection.ok = false;

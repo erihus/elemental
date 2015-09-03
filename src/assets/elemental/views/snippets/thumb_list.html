@@ -1,0 +1,34 @@
+<div ng-if="collection.children.length">
+    <div class="ui hidden divider"></div>
+    <h3 class="ui header">{{collection.nickname}} Gallery</h3>
+</div>
+<div ng-model="collection">
+	<div class="ui grid sortable-grid" id="{{collection.slug}}_sort_container" as-sortable="dragControlListeners" is-disabled="(collection.reorderable == 0) ? true : false" ng-model="collection.children">
+		<div class="four wide column child-section" as-sortable-item ng-repeat="child in collection.children">
+			<div class="ui card" as-sortable-item-handle>
+				<div class="image">
+					<cms-thumb content="child" thumbfield="collection.component.childThumbField"></cms-thumb>
+				</div>
+				<div class="content">
+					<div class="header">
+						{{child.nickname}}
+					</div>
+				</div>
+				<div class="extra content">
+					<a ng-click="deleteItem(child)" ng-if="collection.addable == 1" class="ui icon basic circular red button right"><i class="trash outline icon"></i></a>
+					<a ng-href="#/{{child.component.prototype}}/{{child.slug}}/edit" class="ui icon basic circular green button right" slug="child.slug" type="child.component.prototype"><i class="write icon"></i></a>
+					<div cms-status owner="child" class="ui toggle checkbox">
+		                <input type="checkbox" name="{{child.slug}}_published" ng-checked="child.status == 'published'">
+		            </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="collection.addable == 1" class="ui basic segment">
+        <a cms-add collection="collection" class="ui basic green button"><i class="add icon"></i> Add Item</a>
+        <div ng-show="collection.addError === true">
+            <div class="ui visible error message" style="margin-top: 10px">Oops, something went wrong. Please try again. Make sure you are using a unique nickname.</div>
+        </div>
+    </div>
+</div>

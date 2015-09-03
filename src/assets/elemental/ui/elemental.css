@@ -9,3 +9,20 @@
 .right {
 	float: right;
 }
+
+.as-sortable-item {
+	border: none !important;
+	background-color: transparent !important;
+}
+
+.sortable-grid {
+	display: inline-block;
+}
+
+.sortable-grid .as-sortable-item, .sortable-grid .as-sortable-placeholder {
+	display: inline-block;
+}
+
+.thumb {
+	width: 100%;
+}

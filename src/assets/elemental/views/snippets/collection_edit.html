@@ -32,5 +32,23 @@
     
     
     <div class="ui error message" ng-model="collection.reorderOk" ng-show="collection.reorderOk === false">Oops! Something went wront reordering the collection items.</div>
-    <ng-include src="'/js/elemental/views/snippets/collection_list.html'"></ng-include>
+    
+    <div ng-if="showViewToggle && collection.children.length" class="right">
+       <label>View</label>
+       <select ng-model="viewOptions.selectedOption" ng-options="option.name for option in viewOptions.options track by option.val">
+           
+       </select>
+    </div>   
+    <div ng-switch on="viewOptions.selectedOption.val">
+        <div ng-switch-when="thumbs">
+            <ng-include src="'/js/elemental/views/snippets/thumb_list.html'"></ng-include>
+        </div>
+        <div ng-switch-when="list">
+            <ng-include src="'/js/elemental/views/snippets/collection_list.html'"></ng-include>
+        </div>
+        <div ng-switch-default>
+            <ng-include src="'/js/elemental/views/snippets/collection_list.html'"></ng-include>
+        </div>
+    </div>
+
 </div>
