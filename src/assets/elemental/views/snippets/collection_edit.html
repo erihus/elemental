@@ -33,6 +33,10 @@
     
     <div class="ui error message" ng-model="collection.reorderOk" ng-show="collection.reorderOk === false">Oops! Something went wront reordering the collection items.</div>
     
+    <div cms-bulk-status owner="collection" class="ui toggle checkbox {{checked}}">
+        <input type="checkbox" name="bulk_published" ng-checked="checked == 'checked'">
+        <label>Publish All</label>
+    </div>
     <div ng-if="showViewToggle && collection.children.length" class="right">
        <label>View</label>
        <select ng-model="viewOptions.selectedOption" ng-options="option.name for option in viewOptions.options track by option.val">

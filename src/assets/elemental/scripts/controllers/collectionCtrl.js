@@ -33,6 +33,18 @@ angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route',
                 $scope.viewOptions.selectedOption = {val:'thumbs', name: "Thumbs"};
             }
 
+            $scope.allPub = true;
+            $scope.checked = '';
+            _.each($scope.collection.children, function(item){
+                if(item.status == 'draft') {
+                    $scope.allPub = false;
+                }
+            });
+
+            if($scope.allPub) {        
+                $scope.checked = 'checked';
+            }
+
             $('.async-loader').fadeOut().siblings('.container').removeClass('hidden');
         });
     });
