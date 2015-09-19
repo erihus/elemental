@@ -1,29 +1,19 @@
 <div class="ui segment">
     <label for="{{ fieldname }}">{{label}}</label>
-    <cms-image model="owner" attribute="attribute">
+    <cms-bulk-add model="owner" attribute="attribute" fieldname="fieldname">
         <div flow-init="{target: 'api/file/upload'}" flow-name="owner.flow" flow-files-submitted="$flow.upload()">
-            <div class="ui basic blue button" flow-btn>
-              <i class="icon file"></i>
-              Select File
+            <div class="ui basic blue button" flow-btn flow-directory ng-show="$flow.supportDirectory">
+              <i class="icon folder"></i>
+              Select Folder
+              <input type="file" name="{{fieldname}}"  multiple="multiple" webkitdirectory="webkitdirectory" style="visibility: hidden; position: absolute;">
            </div>
-            <div ng-show="attribute.width || attribute.height" class="ui blue pointing left label">
-                <span ng-if="attribute.width">Width: {{attribute.width}}px</span> <span ng-if="attribute.height">X {{attribute.height}}px</span>
-           </div>
-
-            <div ng-if="attribute.value" class="ui basic segment">
-                <div class="ui card">
-                    <div class="image">
-                        <img ng-src="{{attribute.value}}" />
-                    </div>
-                    <div class="content">
-                            <div class="description">Current Image</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ui grid">
-                <div class="eight wide column" ng-repeat="file in $flow.files">
+           <div class="ui hidden divider"></div>
+            <div class="ui grid section">
+                <div class="four wide column" ng-repeat="file in $flow.files">
                     <div class="ui card">            
+                        <div class="image">
+                            <img flow-img="file">
+                        </div>
                         <div class="content">
                             <div class="description">{{file.name}}</div>
                             <div class="ui small blue progress file-progress" ng-class="{active: file.isUploading()}">
@@ -35,8 +25,12 @@
                 </div>
             </div>
         
+            <div class="ui visible error message" ng-show="!$flow.supportDirectory">Error: Please use the Chrome browser for folder upload support</div>
         </div>
-    </cms-image>
+    </cms-bulk-add>
+
+
+    
     <div ng-show="owner.errors.{{fieldname}}.length" ng-repeat="error in owner.errors[fieldname]">
         <div class="ui visible error message" style="margin-top: 10px">{{error}}</div>
     </div>

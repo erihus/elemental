@@ -15,7 +15,7 @@ angular.module('elementalApp').directive('cmsField', [ 'Collection', 'Element', 
             fieldname: '=',
             form: '='
         },
-        controller: function($scope, $route) {
+        controller: function($scope, $route, $compile) {
             $scope.getOptionData = function(route) {
 
                 var serviceName,
@@ -169,7 +169,7 @@ angular.module('elementalApp').directive('cmsField', [ 'Collection', 'Element', 
 
            // scope.typeKey = scope.attribute.key; 
            // scope.fieldType = scope.field;//scope.owner.component.fields[scope.typeKey]; 
-            scope.label = scope.owner.component.labels[scope.fieldname];
+            scope.label = (scope.fieldset == 'batch') ? scope.owner.component.batchCreateLabels[scope.fieldname] : scope.owner.component.labels[scope.fieldname];
             scope.attribute = null;
 
             var field = _.findWhere(scope.owner.attributes, {key: scope.fieldname});
@@ -225,6 +225,7 @@ angular.module('elementalApp').directive('cmsField', [ 'Collection', 'Element', 
                     case 'readonly':
                     case 'wysiwyg':
                     case 'image':
+                    case 'directory':
                     case 'select':
                     case 'multiselect':
                     case 'radio':

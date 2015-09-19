@@ -1,4 +1,4 @@
-<label for="{{ fieldname }}">{{label}}</label>
+<label for="{{ fieldname }}" ng-bind-html="label"></label>
 <input type="text" name="{{ fieldname }}" ng-model="attribute.value" {{ required }} ng-change="$emit('TextInputChange', attribute.key, attribute.value)" ></input>
 <!-- <div class="ui visible error message" ng-show="form.$submitted || form.{{fieldname}}.$touched">{{label}} is required</div> -->
 <div ng-show="owner.errors.{{fieldname}}.length" ng-repeat="error in owner.errors[fieldname]">

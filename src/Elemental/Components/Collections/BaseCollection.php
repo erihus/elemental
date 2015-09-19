@@ -15,6 +15,9 @@ abstract class BaseCollection {
     public $slug_generator = [];
     public $childThumbView;
     public $childThumbField;
+    public $batchCreate;
+    public $batchCreateFields = [];
+    public $batchCreateLabels = [];
 }
 
 

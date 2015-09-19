@@ -40,6 +40,10 @@ angular.module('elementalApp', [
         method: 'edit',
         templateUrl: '/js/elemental/views/snippets/user_edit.html'
       })
+      .when('/add/:slug/:bulk_add', {
+        controller: 'CollectionCtrl',
+        templateUrl: '/js/elemental/views/snippets/bulk_add.html',
+      })
       .when('/collection/:slug/edit', {
         controller: 'CollectionCtrl',
         templateUrl: '/js/elemental/views/snippets/collection_edit.html',

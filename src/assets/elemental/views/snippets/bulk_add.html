@@ -1,0 +1,17 @@
+<div class="ui active inverted dimmer async-loader">
+    <div class="ui text loader">Loading…</div>
+</div>
+<div class="container hidden">
+    <a class="ui basic button right" cms-back><i class="ui icon arrow circle outline left"></i> Back</a>
+    <h3 class="ui header">{{collection.nickname}} Batch Create</h3>
+    <div class="ui hidden divider"></div>
+    <div class="ui red segment" cms-collapsable>
+    	<div class="basic segment collapser expanded">
+            <form novalidate class="ui form" ng-submit="bulkCreate(collection)" ng-model="collection" name="collectionForm">
+				<div cms-field class="field" ng-repeat="(name, type) in collection.component.batchCreateFields" fieldname="name" fieldtype="type" owner="collection" fieldset="'batch'" form="collectionForm"></div>
+                <input ng-if="collectionForm.$valid" class="ui red basic button" type="submit" id="submit" value="Save" />
+            </form>
+        </div>
+        <div class="ui success message" ng-show="collection.bulkAddOk === true">Items added successfully.</div>
+    </div>
+</div>

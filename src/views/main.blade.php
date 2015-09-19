@@ -107,6 +107,7 @@
     <script src="/js/elemental/scripts/directives/cmsStatus.js"></script>
     <script src="/js/elemental/scripts/directives/cmsBulkStatus.js"></script>
     <script src="/js/elemental/scripts/directives/cmsAdd.js"></script>
+    <script src="/js/elemental/scripts/directives/cmsBulkAdd.js"></script>
     <script src="/js/elemental/scripts/directives/cmsField.js"></script>
     <script src="/js/elemental/scripts/directives/cmsImage.js"></script>
     <script src="/js/elemental/scripts/directives/cmsThumb.js"></script>

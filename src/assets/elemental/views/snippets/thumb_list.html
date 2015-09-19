@@ -1,6 +1,6 @@
 <div ng-if="collection.children.length">
     <div class="ui hidden divider"></div>
-    <h3 class="ui header">{{collection.nickname}} Gallery</h3>
+    <!-- <h3 class="ui header">{{collection.nickname}} Gallery</h3> -->
 </div>
 <div ng-model="collection">
 	<div class="ui grid sortable-grid" id="{{collection.slug}}_sort_container" as-sortable="dragControlListeners" is-disabled="(collection.reorderable == 0) ? true : false" ng-model="collection.children">
@@ -24,11 +24,4 @@
 			</div>
 		</div>
 	</div>
-
-	<div ng-if="collection.addable == 1" class="ui basic segment">
-        <a cms-add collection="collection" class="ui basic green button"><i class="add icon"></i> Add Item</a>
-        <div ng-show="collection.addError === true">
-            <div class="ui visible error message" style="margin-top: 10px">Oops, something went wrong. Please try again. Make sure you are using a unique nickname.</div>
-        </div>
-    </div>
 </div>

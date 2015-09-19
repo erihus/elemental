@@ -33,6 +33,11 @@ angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route',
                 $scope.viewOptions.selectedOption = {val:'thumbs', name: "Thumbs"};
             }
 
+            if(res.component.batchCreate) {
+                $scope.showBatchCreate = true;
+                $scope.collection.bulkAddOk = false;
+            }
+
             $scope.allPub = true;
             $scope.checked = '';
             _.each($scope.collection.children, function(item){
@@ -100,6 +105,97 @@ angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route',
             $scope.collection.reorderOk = false;
         });
         
+    };
+
+    $scope.base_name = function(str) {
+       var base = new String(str).substring(str.lastIndexOf('/') + 1); 
+        if(base.lastIndexOf(".") != -1)       
+            base = base.substring(0, base.lastIndexOf("."));
+       return base;
+        
+    };
+
+    $scope.loadComponent =  function(prototype, type) {
+        return Component.get({prototype: prototype, type: type});
+    };
+
+    $scope.bulkCreate = function(collection){
+        var dirField;
+        var newChildCount = 0;
+        var nicknamePattern = _.findWhere(collection.attributes, {key: 'nickname_pattern'});
+        var prototype = collection.component.attachablePrototype;
+        var type = collection.component.attachableComponent;
+        var newComponent = $scope.loadComponent(prototype, type);
+        //console.log(nicknamePattern);
+        _.each(collection.component.batchCreateFields, function(type, field){
+            if(type == 'directory') {
+                dirField = field;
+            }
+        });
+
+        newComponent.$promise.then(function(component){
+
+            _.each(collection.newChildren, function(child){
+                newChildCount++;
+                var childCount = collection.children.length;
+                var filename = $scope.base_name(child[dirField].filename); 
+                var nickname = nicknamePattern.value.replace(/#/g, childCount+newChildCount).replace(/\[filename\]/, filename);
+                var slug = nickname.replace(/\s+/g, '_').toLowerCase();
+                var service;
+                var newChild = {};
+
+                
+
+                //populate object for saving
+                newChild.parent = collection.slug;
+                newChild.nickname = nickname;
+                newChild.slug = slug;
+                newChild.type = type;
+
+                if(prototype == 'collection') {
+                    newChild.addable = collection.component.attachableAddable;
+                    newChild.reorderable = collection.component.attachableReorderable;
+                }
+
+                newChild.attributes = {};
+                angular.forEach(component.fields, function(value, key){
+                    var attrVal = '';
+                    var attachableKey = 'attachable_'+key;
+                    this.attributes[key]  = '';
+                     //pull matching attributes down from collection (eg, for attaching images to a gallery, all with the same dimensions)
+                    for(var i=0; i<collection.attributes.length; i++) {
+                        if(attachableKey == collection.attributes[i].key) {
+                            this.attributes[key] = collection.attributes[i].value;
+                        }
+                    }
+
+                    if(key == dirField) {
+                        this.attributes[key] = child[dirField].path
+                    }
+
+                    this.attributes.media_type = 'image' // hardcoding this for now
+
+
+                }, newChild);        
+
+                //determine api endpoint
+                if(prototype == 'collection') {
+                    service  = Collection;
+                } else {
+                    service = Element;
+                }
+
+                //save it!
+                service.save(newChild, function(child){
+                    collection.addError = false;
+                    collection.children.push(child[0]);
+                    collection.bulkAddOk = true;
+                }, function(err){
+                    collection.addError = true;
+                    collection.bulkAddOk = false;                        
+                });
+            });
+        });  
     };
 
     $scope.dragControlListeners = {
