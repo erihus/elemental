@@ -126,7 +126,12 @@ angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route',
         var prototype = collection.component.attachablePrototype;
         var type = collection.component.attachableComponent;
         var newComponent = $scope.loadComponent(prototype, type);
-        //console.log(nicknamePattern);
+        
+        if(!nicknamePattern) {
+            alert('You must provide a nickname pattern for the new items.')
+            return false;
+        }
+        
         _.each(collection.component.batchCreateFields, function(type, field){
             if(type == 'directory') {
                 dirField = field;
