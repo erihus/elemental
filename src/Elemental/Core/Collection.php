@@ -7,7 +7,7 @@ class Collection extends Model {
     protected $fillable = ['nickname', 'slug', 'type', 'reorderable', 'addable', 'status'];
 
 	public function elements() {
-        return $this->belongsToMany('Elemental\Core\Element', 'parent_child', 'parent_id', 'child_id')->withPivot('order')->withPivot('child_type'); //belongsToMany looks weird here but its necessary to get our pivot table to work
+        return $this->belongsToMany('Elemental\Core\Element', 'parent_child', 'parent_id', 'child_id')->withPivot('order')->withPivot('child_type')->wherePivot('child_type', '=', 'element'); ; //belongsToMany looks weird here but its necessary to get our pivot table to work
     }
 
     public function attributes() {
@@ -15,7 +15,7 @@ class Collection extends Model {
     }
 
     public function collections() {
-        return $this->belongsToMany('Elemental\Core\Collection', 'parent_child', 'parent_id', 'child_id')->withPivot('order')->withPivot('child_type'); //belongsToMany looks weird here but its necessary to get our pivot table to work
+        return $this->belongsToMany('Elemental\Core\Collection', 'parent_child', 'parent_id', 'child_id')->withPivot('order')->wherePivot('child_type', '=', 'collection'); //belongsToMany looks weird here but its necessary to get our pivot table to work
     }
 
     public function scopeStatus($query, $status){
