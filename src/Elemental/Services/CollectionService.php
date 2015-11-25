@@ -53,7 +53,8 @@ class CollectionService implements HubInterface {
 
 
     public function read($slug) {
-        return $this->collection->find($slug);
+        $collection = $this->collection->find($slug);
+        return $collection;
     }
 
     public function readAll($type = null) {
@@ -61,24 +62,18 @@ class CollectionService implements HubInterface {
     }
 
 
-    public function query($params, $normalizeAttributes = true){
-        return $this->collection->findBy($params, $normalizeAttributes);
+    public function query($params, $normalizeAttributes = true, $bootstrapChildren = true, $limit = null){
+        return $this->collection->query($params, $normalizeAttributes, $bootstrapChildren, $limit);
     }
 
 
-    public function findByAttribute($collectionParams = [], $attrKey, $attrValue) {
-        $collections  = $this->query($collectionParams);
-
-        $return = [];
-        foreach($collections as $collection) {
-            foreach($collection['attributes'] as $key => $val) {
-                if($key == $attrKey && $val == $attrValue) {
-                    array_push($return, $collection);
-                }
-            }
-        }
-
-        return $return;
+    public function findByAttribute($collectionParams = [], $attrKey, $attrValue, $normalizeAttributes = true, $bootstrapChildren = true, $limit = null, $recursionDepth = null) {
+        $attributeParams = [
+            'key' => $attrKey,
+            'value' => $attrValue
+        ];
+        $collections = $this->collection->findByAttribute($collectionParams, $attributeParams, $normalizeAttributes, $bootstrapChildren, $limit, $recursionDepth);
+        return $collections;
     }
 
 
