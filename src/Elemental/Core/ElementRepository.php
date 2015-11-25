@@ -49,15 +49,21 @@ class ElementRepository implements ElementInterface {
     }
 
 
-    public function findBy($params, $normalizeAttributes = true)
+    public function findBy($params, $order = null, $limit = null)
     {
-        $elements = Element::where($params)->with('attributes')->get()->toArray();
-        
+        $elements = Element::where($params)->with('attributes');
+        if(!is_null($order)) {
+            $elements->orderBy($order[0], $order[1]);
+        }
+        if(!is_null($limit)) {
+            $elements->limit($limit);
+        }
+        $elements = $elements->get();
+        $elements = $elements->toArray();
+        // dd($elements);
         $status = (isset($params['status'])) ? $params['status'] : null;
         for($i=0; $i<count($elements); $i++) {
-            if($normalizeAttributes) {
-                $elements[$i]['attributes'] = $this->_normalizeAttributes($elements[$i]['attributes']);
-            }
+            $elements[$i]['attributes'] = $this->_normalizeAttributes($elements[$i]['attributes']);
             $elements[$i]['component'] = $this->_bootstrapComponent('element', $elements[$i]['type']);
         }
         return $elements;
