@@ -349,9 +349,11 @@ class CollectionRepository implements CollectionInterface{
     }
 
 
-    private function _normalizeAttributes($attributes) {
+    private function _normalizeAttributes($collection) {
         $returnArray = [];
-        foreach($attributes as $attr) {
+        $attributes= $collection->attributes->toArray();
+        foreach($attributes as &$attr) {
+            
             $returnArray[$attr['key']] = $attr['value'];
         }
         return $returnArray;
