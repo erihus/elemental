@@ -201,7 +201,7 @@ class CollectionRepository implements CollectionInterface{
             $col = $this->_findRaw($collectionSlug);
             $order = $order = $this->_determineOrder($col);
             
-            $col->elements()->attach($el, ['order' => $order, 'child_type' => 'element']);
+            $attach = $col->elements()->attach($el, ['order' => $order, 'child_type' => 'element']);
             return true;
         } catch (Exception $e) {
             return false;

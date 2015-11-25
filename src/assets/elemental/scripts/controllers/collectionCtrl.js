@@ -26,6 +26,7 @@ angular.module('elementalApp').controller('CollectionCtrl', ['$scope', '$route',
         Collection.edit({slug: slug}, function(res){
             $scope.collection = res;
             $scope.collection.errors = null;
+            $scope.collection.children = _.values($scope.collection.children);
             resolve($scope.collection);
 
             if(res.component.childThumbView) {
