@@ -62,8 +62,8 @@ class ElementService implements HubInterface {
     }
 
 
-    public function query($params, $normalizeAttributes = true){
-        return $this->element->findBy($params, $normalizeAttributes);
+    public function query($params, $order = null, $limit = null){
+        return $this->element->findBy($params, $order, $limit);
     }
 
 
