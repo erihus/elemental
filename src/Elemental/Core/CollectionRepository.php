@@ -111,17 +111,24 @@ class CollectionRepository implements CollectionInterface{
             array_push($collections, $collection);
             
         });
-                $filteredCollections = LaravelCollection::make($collections);
+        $filteredCollections = LaravelCollection::make($collections);
+        
         if(!empty($collectionParams)) { //perform collection level filters on attribute search results
             $search = [];
             foreach($collectionParams as $key => $value) {
                 $search['key'] = $key;
                 $search['value'] = $value;
+
+                $filteredCollections = $filteredCollections->filter(function($collection) use($search){
+                    // dump($search);
+                    // dump($collection['attributes']);
+
+                    return $collection['attributes'][$search['key']] == $search['value'];
+                });
             }
             if($search['key'] == 'status') {
                 $status = $search['value'];
             }
-            $filteredCollections = $filteredCollections->where($search['key'], $search['value']);
         }
 
         $results = [];
