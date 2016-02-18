@@ -4,12 +4,15 @@
 use Elemental\Core\Contracts\ElementAttributeInterface;
 use Elemental\Core\Element;
 use Elemental\Core\ElementAttribute;
+use Elemental\Events\CMSContentSaved;
+use Event;
 
 
 class ElementAttributeRepository implements ElementAttributeInterface {
 
     public function createAndAttach($elementSlug, $attributes) {
-         try{
+         try
+         {
             $element = $this->_fetchElement($elementSlug);
             foreach($attributes as $key => $val) {
                 $attr = new ElementAttribute;
@@ -20,6 +23,7 @@ class ElementAttributeRepository implements ElementAttributeInterface {
                 $attr->value = $val;
                 $element->attributes()->save($attr);
             }
+            Event::fire(new CMSContentSaved(['prototype' => 'element', 'type'=>$element->type, 'slug' => $element->slug, 'action' => 'update']));
             return true;
         } catch (Exception $e) {
             return false;
@@ -28,7 +32,8 @@ class ElementAttributeRepository implements ElementAttributeInterface {
 
     public function update($elementSlug, $input)
     {
-        try {
+        try 
+        {
             $element = $this->_fetchElement($elementSlug);
             foreach($input as $key => $val) {
                 $attribute = $this->_fetchAttribute($element, $key);
@@ -47,6 +52,7 @@ class ElementAttributeRepository implements ElementAttributeInterface {
                 $attribute->value = $val;
                 $attribute->save();
             }
+            Event::fire(new CMSContentSaved(['prototype' => 'element', 'type'=>$element->type, 'slug' => $element->slug, 'action' => 'update']));
             return true;
         } catch (Exception $e) {
             return false;
@@ -57,6 +63,7 @@ class ElementAttributeRepository implements ElementAttributeInterface {
     {
         try{
             $element = $this->_fetchElement($elementSlug);
+            Event::fire(new CMSContentSaved(['prototype' => 'element', 'type'=>$element->type, 'slug' => $element->slug, 'action' => 'delete']));
             $element->attributes()->delete();
             return true;
         } catch (Exception $e) {

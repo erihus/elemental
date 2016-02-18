@@ -4,6 +4,8 @@ use Illuminate\Support\Collection as LaravelCollection;
 use Elemental\Core\Contracts\CollectionInterface;
 use Elemental\Core\Collection;
 use Elemental\Core\Element;
+use Elemental\Events\CMSContentSaved;
+use Event;
 use DB;
 use \ReflectionClass;
 
@@ -14,6 +16,7 @@ class CollectionRepository implements CollectionInterface{
    public function create(array $input) {
         try{
             $collection = Collection::create($input)->toArray();
+            Event::fire(new CMSContentSaved(['prototype' => 'collection', 'type'=>$collection['type'], 'slug' => $collection['slug'], 'action' => 'create']));
             return $collection;
         } catch (Exception $e) {
             return false;
@@ -157,6 +160,7 @@ class CollectionRepository implements CollectionInterface{
         try {
             $collection = $this->_findRaw($slug);
             $collection->fill($input)->save();
+            $event = Event::fire(new CMSContentSaved(['prototype' => 'collection', 'type'=>$collection->type, 'slug' => $collection->slug, 'action' => 'update']));
             return true;
         } catch (Exception $e) {
             return false;
@@ -173,6 +177,7 @@ class CollectionRepository implements CollectionInterface{
                 ->where('child_type', $childType)
                 ->update(['order'=> $childOrder]);
            
+           Event::fire(new CMSContentSaved(['prototype' => 'collection', 'type'=>$collection->type, 'slug' => $collection->slug, 'action' => 'update']));
            return true;
         } catch (Exception $e) {
             return false;
@@ -273,7 +278,7 @@ class CollectionRepository implements CollectionInterface{
                     $col->collections()->detach($collection->id);
                 }                
             }
-
+            Event::fire(new CMSContentSaved(['prototype' => 'collection', 'type'=>$collection->type, 'slug' => $collection->slug, 'action' => 'delete']));
             $collection->delete();
             return true;
         } catch (Exception $e) {

@@ -4,6 +4,8 @@
 use Elemental\Core\Contracts\CollectionAttributeInterface;
 use Elemental\Core\Collection;
 use Elemental\Core\CollectionAttribute;
+use Elemental\Events\CMSContentSaved;
+use Event;
 
 
 class CollectionAttributeRepository implements CollectionAttributeInterface {
@@ -23,6 +25,7 @@ class CollectionAttributeRepository implements CollectionAttributeInterface {
             }
 
             $collection->attributes()->saveMany($attributeModels);
+            Event::fire(new CMSContentSaved(['prototype' => 'collection', 'type'=>$collection->type, 'slug' => $collection->slug, 'action' => 'update']));
             return true;
         } catch (Exception $e) {
             return false;
@@ -52,6 +55,7 @@ class CollectionAttributeRepository implements CollectionAttributeInterface {
                 $attribute->value = $val;
                 $attribute->save();
             }
+            Event::fire(new CMSContentSaved(['prototype' => 'collection', 'type'=>$collection->type, 'slug' => $collection->slug, 'action' => 'update']));
             return true;
         } catch (Exception $e) {
             return false;
@@ -62,6 +66,7 @@ class CollectionAttributeRepository implements CollectionAttributeInterface {
     {
         try{
             $collection = $this->_fetchCollection($collectionSlug);
+            Event::fire(new CMSContentSaved(['prototype' => 'collection', 'type'=>$collection->type, 'slug' => $collection->slug, 'action' => 'delete']));
             $collection->attributes()->delete();
             return true;
         } catch (Exception $e) {

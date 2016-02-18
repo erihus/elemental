@@ -4,6 +4,8 @@ use \ReflectionClass;
 use Elemental\Core\Contracts\ElementInterface;
 use Elemental\Core\Element;
 use Elemental\Core\Collection;
+use Elemental\Events\CMSContentSaved;
+use Event;
 use DB;
 
 class ElementRepository implements ElementInterface {
@@ -31,6 +33,7 @@ class ElementRepository implements ElementInterface {
         try {
             $element = $this->_findRaw($slug);
             $element->fill($input)->save();
+            $event = Event::fire(new CMSContentSaved(['prototype' => 'element', 'type'=>$element->type, 'slug' => $element->slug, 'action' => 'update']));
             return true;
         } catch (Exception $e) {
             return false;
@@ -83,7 +86,7 @@ class ElementRepository implements ElementInterface {
                     $col->elements()->detach($element->id);
                 }   
             }
-
+            Event::fire(new CMSContentSaved(['prototype' => 'element', 'type'=>$element->type, 'slug' => $element->slug, 'action' => 'delete']));
             $element->delete();
             return true;
         } catch (Exception $e) {
